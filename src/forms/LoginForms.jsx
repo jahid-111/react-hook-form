@@ -3,8 +3,12 @@ import Field from "../components/Field";
 import { useForm } from "react-hook-form";
 
 const LoginForms = () => {
-  const { register, handleSubmit } = useForm();
-  // console.log(register())
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  //   console.log(useForm())
 
   const submitForm = (data) => {
     console.log(data);
@@ -14,20 +18,30 @@ const LoginForms = () => {
     <div className=" flex flex-col justify-center items-center sm:w-5/12 mx-auto bg-gray-200 rounded-lg">
       <form onSubmit={handleSubmit(submitForm)}>
         <FieldSet label="Enter Data">
-          <Field label="Email">
+          <Field label="Email" error={errors.email}>
             <input
-              {...register("email")}
-              className=" p-2 border box-border w-[300px] rounded-md"
+              {...register("email", { required: "Required E-mail" })}
+              className={`p-2 border box-border outline-none w-[300px] rounded-md ${
+                !errors.email ? "border-gray-400" : " border-red-500"
+              }`}
               type="email"
               name="email"
               id="email"
               placeholder=" email@mail.com"
             />
           </Field>
-          <Field label="Password">
+          <Field label="Password" error={errors.password}>
             <input
-              {...register("password")}
-              className=" p-2 border box-border w-[300px] rounded-md"
+              {...register("password", {
+                required: "Required Password",
+                minLength: {
+                  value: 8,
+                  message: "Your Password Must be 8 Charactures",
+                },
+              })}
+              className={`p-2 border box-border outline-none w-[300px] rounded-md ${
+                !errors.password ? "border-gray-400" : " border-red-500"
+              }`}
               type="password"
               name="password"
               id="password"
