@@ -7,11 +7,17 @@ const LoginForms = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
-  //   console.log(useForm())
 
   const submitForm = (data) => {
-    console.log(data);
+    const user = { email: "xyz@mail.com", password: "12345678" };
+    const found = data.email === user.email && data.password === user.password;
+    if (!found) {
+      setError("root.random", {
+        message: `Uer not Valid  "${user.email}"`,
+      });
+    }
   };
 
   return (
@@ -27,7 +33,7 @@ const LoginForms = () => {
               type="email"
               name="email"
               id="email"
-              placeholder=" email@mail.com"
+              placeholder="xyz@mail.com"
             />
           </Field>
           <Field label="Password" error={errors.password}>
@@ -48,6 +54,7 @@ const LoginForms = () => {
               placeholder="Enter Strong password"
             />
           </Field>
+          <div>{errors?.root?.random?.message}</div>
           <Field>
             <button className=" bg-green-600 block w-full text-white px-6 py-2 rounded-md">
               Log In
