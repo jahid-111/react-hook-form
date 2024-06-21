@@ -1,6 +1,7 @@
 import FieldSet from "../components/FieldSet";
 import Field from "../components/Field";
-import { useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import NumberInput from "../components/NumberInput";
 
 const RegistrationForm = () => {
   const {
@@ -70,23 +71,26 @@ const RegistrationForm = () => {
             />
           </Field>
 
-          <Field label="age" error={errors.age}>
-            <input
-              {...register("age", {
-                required: "Required age",
+          <Field label="Age" error={errors.age}>
+            <Controller
+              name="age"
+              control={control}
+              render={({ field: { ref, ...field } }) => (
+                <NumberInput
+                  id="age"
+                  className={`p-2 border box-border outline-none w-[300px] rounded-md ${
+                    !errors.fullName ? "border-gray-400" : " border-red-500"
+                  }`}
+                  {...field}
+                ></NumberInput>
+              )}
+              rules={{
                 min: {
                   value: 18,
-                  message: "Age Must be 18+",
+                  message: "age Must be 18+",
                 },
-              })}
-              className={`p-2 border box-border outline-none w-[300px] rounded-md ${
-                !errors.age ? "border-gray-400" : " border-red-500"
-              }`}
-              type="number"
-              name="age"
-              id="age"
-              placeholder="Enter age"
-            />
+              }}
+            ></Controller>
           </Field>
 
           <FieldSet label="Add Social Link">
