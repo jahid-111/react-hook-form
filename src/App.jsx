@@ -1,11 +1,13 @@
 import "./App.css";
 import LoginForms from "./forms/LoginForms";
+import RegistrationForm from "./forms/RegistrationForm";
 
 function App() {
   return (
     <>
       <div className=" mx-auto">
-        <LoginForms></LoginForms>
+        {/* <LoginForms></LoginForms> */}
+        <RegistrationForm></RegistrationForm>
       </div>
     </>
   );
